@@ -4,7 +4,11 @@
 * PROGRAMMER(S):    John Welsh <djlw78@gmail.com>
 */
 
+using Cosmos.HAL;
 using System;
+using Cosmos.System.Network.IPv4;
+using Cosmos.System.Network;
+using Cosmos.HAL.Drivers.PCI.Network;
 
 namespace Aura_OS.Shell.cmdIntr
 {
@@ -174,6 +178,109 @@ namespace Aura_OS.Shell.cmdIntr
                 int value = 1;
                 value = value - 1;
                 int result = 1 / value; //Division by 0
+            }
+
+            else if (cmd.Equals("net"))
+            {
+
+                Console.WriteLine("Finding network devices...");
+
+                PCIDevice device = PCI.GetDevice(VendorID.AMD, DeviceID.PCNETII);
+                if (device != null)
+                {
+                    AMDPCNetII nic = new AMDPCNetII(device);
+                    
+
+                    Console.WriteLine("Found AMD PCNetII NIC on PCI " + device.bus + ":" + device.slot + ":" + device.function);
+                    Console.WriteLine("NIC IRQ: " + device.InterruptLine);
+                    Console.WriteLine("NIC MAC Address: " + nic.MACAddress.ToString());
+
+                    NetworkDevice.Devices.Add(nic);
+
+                    NetworkStack.Init();
+                    nic.Enable();
+
+                    Address computer = new Address(192, 168, 1, 99);
+                    Address subnet = new Address(255, 255, 255, 0);
+                    Address gateway = new Address(192, 168, 1, 1);
+
+                    Config config = new Config(computer, subnet, gateway);
+
+                    NetworkStack.ConfigIP(nic, config);
+
+                    var xClient = new UdpClient(4242);
+                    xClient.Connect(new Address(192, 168, 1, 99), 4242);
+                    xClient.Send(new byte[]
+                                 {
+                                     0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x20, 0x66, 0x72, 0x6f, 0x6d, 0x20, 0x41, 0x75, 0x72, 0x61, 0x20, 0x4f, 0x53, 0x21
+                                });
+
+                    while (true)
+                    {
+                        NetworkStack.Update();
+                    
+                        Console.WriteLine("Done");
+                        Console.ReadLine();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("AMD PCNetII not found!");
+                }
+
+                
+
+                //Address myIP = new Address(192, 168, 169, 1);
+                //Address mySubnet = new Address(255, 255, 255, 0);
+                //Address myGateway = new Address(192, 168, 1, 1);
+                //Config myConfig = new Config(myIP, mySubnet, myGateway);
+
+                //NetworkStack.ConfigIP(nic, myConfig);
+                //nic.Enable();
+
+                //while (true)
+                //{
+                //    NetworkStack.Update();
+                //}
+
+                //PCIDevice device;
+                //device = PCI.GetDevice(0x1022, 0x2000);
+
+                //Cosmos.HAL.Drivers.PCI.Network.AMDPCNetII nic = new Cosmos.HAL.Drivers.PCI.Network.AMDPCNetII(device);
+
+                //NetworkDevice.Devices.Add(nic);
+
+                //Cosmos.System.Network.NetworkStack.Init();
+
+                //Cosmos.System.Network.IPv4.Address myIP = new Cosmos.System.Network.IPv4.Address(192, 168, 1, 128);
+                //Cosmos.System.Network.IPv4.Address mySubnet = new Cosmos.System.Network.IPv4.Address(255, 255, 255, 0);
+                //Cosmos.System.Network.IPv4.Address myGateway = new Cosmos.System.Network.IPv4.Address(192, 168, 135, 1);
+                //Cosmos.System.Network.IPv4.Config myConfig = new Cosmos.System.Network.IPv4.Config(myIP, mySubnet, myGateway);
+
+                //NetworkStack.ConfigIP(nic, myConfig);
+                //nic.Enable();
+
+                //Console.WriteLine("Found AMD PCNetII NIC on PCI " + device.bus + ":" + device.slot + ":" +
+                //             device.function);
+                // Console.WriteLine("NIC IRQ: " + device.InterruptLine);
+                //Console.WriteLine("NIC MAC Address: " + nic.MACAddress.ToString());
+
+                //var xClient = new UdpClient(55341);
+                //xClient.Connect(new Address(192, 168, 1, 12), 55341);
+
+                // Cosmos.System.Network.IPv4.EndPoint source = new Cosmos.System.Network.IPv4.EndPoint(new Address(192, 168, 1, 12), 55341);
+
+                // xClient.Receive(ref source);
+                //xClient.Send(new byte[]
+                //             {
+                //                 0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x20, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x21
+                //             });
+
+                // NetworkStack.Update();
+                // xClient.Close();
+                Console.WriteLine("Done");
+
+
             }
 
             #endregion Tests
