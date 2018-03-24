@@ -4,6 +4,7 @@
 * PROGRAMMER(S):    John Welsh <djlw78@gmail.com>
 */
 
+using Aura_OS.System.Utils;
 using System;
 
 namespace Aura_OS.Shell.cmdIntr
@@ -221,6 +222,8 @@ namespace Aura_OS.Shell.cmdIntr
                 }                
             }
 
+            CommandsHistory.Add(cmd); //adding last command to the commands history            
+            
             Console.WriteLine();
 
             #endregion Util
