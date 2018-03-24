@@ -43,6 +43,7 @@ namespace Aura_OS
         public static bool JustInstalled = false;
         public static CosmosVFS vFS = new CosmosVFS();
 		public static Dictionary<string, string> environmentvariables = new Dictionary<string, string>();
+        public static string cmd;
 
         #endregion
 
@@ -142,7 +143,8 @@ namespace Aura_OS
                     {
                         BeforeCommand();                  
 
-                        var cmd = Console.ReadLine();
+                        cmd = Console.ReadLine();                        
+                        
                         Shell.cmdIntr.CommandManager._CommandManger(cmd);
                         //Console.WriteLine();
                     }
@@ -165,7 +167,7 @@ namespace Aura_OS
         /// <summary>
         /// Display the line before the user input and set the console color.
         /// </summary>
-        private static void BeforeCommand()
+        public static void BeforeCommand()
         {
             if (current_directory == @"0:\")
             {
