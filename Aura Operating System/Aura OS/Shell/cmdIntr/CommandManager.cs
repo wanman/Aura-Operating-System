@@ -210,6 +210,29 @@ namespace Aura_OS.Shell.cmdIntr
                 Util.Lspci.c_Lspci();
             }
 
+            else if (cmd.Equals("test"))
+            {
+                Console.Write("Your editable text: ");
+
+                Cosmos.System.Console.commands.Add("last command");
+                Cosmos.System.Console.writecommand = true;
+                Cosmos.System.Console.commandindex = 0;
+
+                string text = Console.ReadLine();
+
+                Console.WriteLine(text);
+
+                Cosmos.System.Console.writecommand = false;
+            }
+
+            else if (cmd.Equals("test1"))
+            {                
+                foreach (string command in Cosmos.System.Console.commands)
+                {
+                    Console.WriteLine(command);
+                }
+            }
+
             else
             {
                 if (cmd.Length <= 0)

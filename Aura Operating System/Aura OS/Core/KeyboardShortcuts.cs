@@ -116,29 +116,24 @@ namespace Aura_OS.Core
                 if (_scanMap.ScanCodeMatchesKey(key, ConsoleKeyEx.UpArrow) && !aReleased)
                 {
                     //Global.Console.WriteLine("Detected Ctrl-Alt-Delete! Rebooting System...");
-                    CommandsHistory.ClearCurrentConsoleLine();
-                    Kernel.BeforeCommand();
-                    string cmd = CommandsHistory.GetUpCommand(CommandsHistory.GetIndex());
-                    Aura.Console.Write(cmd);
-                    ConsoleKeyInfo cmdkey = Aura.Console.ReadKey();
-                    if (cmdkey.Key == ConsoleKey.Enter)
-                    {
-                        Shell.cmdIntr.CommandManager._CommandManger(cmd);
-                    }
+                    //CommandsHistory.ClearCurrentConsoleLine();
+                    //Kernel.BeforeCommand();
+                    //string cmd = CommandsHistory.GetUpCommand(CommandsHistory.GetIndex());
+
+                    Cosmos.System.Console.writecommand = true;
+                    Cosmos.System.Console.commandindex = 0;
+
                 }
 
                 if (_scanMap.ScanCodeMatchesKey(key, ConsoleKeyEx.DownArrow) && !aReleased)
                 {
-                    //Global.Console.WriteLine("Detected Ctrl-Alt-Delete! Rebooting System...");
-                    CommandsHistory.ClearCurrentConsoleLine();
-                    Kernel.BeforeCommand();
-                    string cmd = CommandsHistory.GetUpCommand(CommandsHistory.GetIndex());
-                    Aura.Console.Write(cmd);
-                    ConsoleKeyInfo cmdkey = Aura.Console.ReadKey();
-                    if (cmdkey.Key == ConsoleKey.Enter)
-                    {
-                        Shell.cmdIntr.CommandManager._CommandManger(cmd);
-                    }
+                    ///Global.Console.WriteLine("Detected Ctrl-Alt-Delete! Rebooting System...");
+                    //CommandsHistory.ClearCurrentConsoleLine();
+                    //Kernel.BeforeCommand();
+                    //string cmd = CommandsHistory.GetUpCommand(CommandsHistory.GetIndex());
+
+                    
+
                 }
 
                 if (!aReleased)
