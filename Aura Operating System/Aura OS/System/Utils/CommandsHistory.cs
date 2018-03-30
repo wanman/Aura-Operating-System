@@ -19,32 +19,34 @@ namespace Aura_OS.System.Utils
             return i;
         }
 
-        public static void GetUpCommand()
+        public static string GetUpCommand()
         {
-            ClearCurrentConsoleLine();
-            Cosmos.System.Console.cmd = "ls";
+            ClearCurrentConsoleLine();            
+
+            Cosmos.System.Console.commands.Add("ls");
             Cosmos.System.Console.writecommand = true;
+            Cosmos.System.Console.commandindex = 0;
 
-            Kernel.BeforeCommand();
-            //string text = Console.ReadLine();
-
-            Shell.cmdIntr.CommandManager._CommandManger("ls");
-
-            Cosmos.System.Console.writecommand = false;
-        }
-
-        public static void GetDownCommand()
-        {
-            ClearCurrentConsoleLine();
-            Cosmos.System.Console.cmd = "echo pizza";
-            Cosmos.System.Console.writecommand = true;
-
-            Kernel.BeforeCommand();
             string text = Console.ReadLine();
 
-            Shell.cmdIntr.CommandManager._CommandManger(text);
+            Cosmos.System.Console.writecommand = false;
+
+            return text;
+        }
+
+        public static string GetDownCommand()
+        {
+            ClearCurrentConsoleLine();
+
+            Cosmos.System.Console.commands.Add("echo pizza");
+            Cosmos.System.Console.writecommand = true;
+            Cosmos.System.Console.commandindex = 0;
+
+            string text = Console.ReadLine();
 
             Cosmos.System.Console.writecommand = false;
+
+            return text;
         }
 
         public static void ClearCurrentConsoleLine()
