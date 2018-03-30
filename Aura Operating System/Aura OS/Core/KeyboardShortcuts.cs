@@ -115,25 +115,12 @@ namespace Aura_OS.Core
             {
                 if (_scanMap.ScanCodeMatchesKey(key, ConsoleKeyEx.UpArrow) && !aReleased)
                 {
-                    //Global.Console.WriteLine("Detected Ctrl-Alt-Delete! Rebooting System...");
-                    //CommandsHistory.ClearCurrentConsoleLine();
-                    //Kernel.BeforeCommand();
-                    //string cmd = CommandsHistory.GetUpCommand(CommandsHistory.GetIndex());
-
-                    Cosmos.System.Console.writecommand = true;
-                    Cosmos.System.Console.commandindex = 0;
-
+                    CommandsHistory.GetUpCommand();                 
                 }
 
                 if (_scanMap.ScanCodeMatchesKey(key, ConsoleKeyEx.DownArrow) && !aReleased)
                 {
-                    ///Global.Console.WriteLine("Detected Ctrl-Alt-Delete! Rebooting System...");
-                    //CommandsHistory.ClearCurrentConsoleLine();
-                    //Kernel.BeforeCommand();
-                    //string cmd = CommandsHistory.GetUpCommand(CommandsHistory.GetIndex());
-
-                    
-
+                    CommandsHistory.GetDownCommand();
                 }
 
                 if (!aReleased)

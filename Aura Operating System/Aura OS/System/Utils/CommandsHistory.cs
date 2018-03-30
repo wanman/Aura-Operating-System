@@ -5,33 +5,46 @@ using System.Text;
 namespace Aura_OS.System.Utils
 {
     class CommandsHistory
-    {
-
-        private static List<string> CommandsList = new List<string>();
-        private static int index = 0;
-        
+    {        
         public static void Add(string cmd)
         {
-            CommandsList.Add(cmd);
-            index++;
+            Cosmos.System.Console.commands.Add(cmd);
+            Cosmos.System.Console.commandindex++;
         }
 
-        public static int GetIndex()
+        public static int GetListIndex()
         {
-            return index;
+            int i = Cosmos.System.Console.commandindex;
+            i -= 1;
+            return i;
         }
 
-        public static string GetUpCommand(int index)
+        public static void GetUpCommand()
         {
-            Kernel.cmd = CommandsList[index - 1];
-            return CommandsList[index - 1];
+            ClearCurrentConsoleLine();
+            Cosmos.System.Console.cmd = "ls";
+            Cosmos.System.Console.writecommand = true;
+
+            Kernel.BeforeCommand();
+            //string text = Console.ReadLine();
+
+            Shell.cmdIntr.CommandManager._CommandManger("ls");
+
+            Cosmos.System.Console.writecommand = false;
         }
 
-        public static string GetDownCommand(int index)
+        public static void GetDownCommand()
         {
-            index--;
-            Kernel.cmd = CommandsList[index - 1];
-            return CommandsList[index - 1];
+            ClearCurrentConsoleLine();
+            Cosmos.System.Console.cmd = "echo pizza";
+            Cosmos.System.Console.writecommand = true;
+
+            Kernel.BeforeCommand();
+            string text = Console.ReadLine();
+
+            Shell.cmdIntr.CommandManager._CommandManger(text);
+
+            Cosmos.System.Console.writecommand = false;
         }
 
         public static void ClearCurrentConsoleLine()
