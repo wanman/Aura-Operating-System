@@ -9,7 +9,6 @@ namespace Aura_OS.System.Utils
         public static void Add(string cmd)
         {
             Cosmos.System.Console.commands.Add(cmd);
-            Cosmos.System.Console.commandindex++;
         }
 
         public static int GetListIndex()
@@ -22,10 +21,8 @@ namespace Aura_OS.System.Utils
         public static string GetUpCommand()
         {
             ClearCurrentConsoleLine();            
-
-            Cosmos.System.Console.commands.Add("ls");
+            
             Cosmos.System.Console.writecommand = true;
-            Cosmos.System.Console.commandindex = 0;
 
             string text = Console.ReadLine();
 

@@ -142,19 +142,15 @@ namespace Aura_OS
                 {
                     if (Logged) //If logged
                     {
-
                         BeforeCommand();
 
-                        
+                        Sys.Console.writecommand = true;
 
                         cmd = Console.ReadLine();
 
                         Shell.cmdIntr.CommandManager._CommandManger(cmd);
 
-                        Sys.Console.commands.Add(cmd);
-
-                        Sys.Console.writecommand = true;
-                        Sys.Console.commandindex = 0;
+                        Sys.Console.writecommand = false;
                     }
                     else
                     {

@@ -113,18 +113,11 @@ namespace Aura_OS.Core
             }
             else
             {
-                if (Kernel.Logged)
+                if (ControlPressed && AltPressed && _scanMap.ScanCodeMatchesKey(key, ConsoleKeyEx.Delete))
                 {
-                    if (_scanMap.ScanCodeMatchesKey(key, ConsoleKeyEx.UpArrow) && !aReleased)
-                    {
-                        Aura.Console.WriteLine(CommandsHistory.GetUpCommand());
-                    }
-
-                    if (_scanMap.ScanCodeMatchesKey(key, ConsoleKeyEx.DownArrow) && !aReleased)
-                    {
-                        Aura.Console.WriteLine(CommandsHistory.GetDownCommand());
-                    }
-                }                
+                    Aura.Console.WriteLine("Rebooting...");
+                    Cosmos.System.Power.Reboot();
+                }
 
                 if (!aReleased)
                 {
