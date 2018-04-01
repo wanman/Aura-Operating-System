@@ -15,6 +15,7 @@ namespace Aura_OS.Shell.cmdIntr
         //       Windows like command, Linux like command, Aura original command (optional for the last one)
         //Example: else if ((cmd.Equals("ipconfig")) || (cmd.Equals("ifconfig")) || (cmd.Equals("netconf"))) {
 
+        private static int i = -1;
         /// <summary>
         /// Empty constructor. (Good for debug)
         /// </summary>
@@ -214,9 +215,8 @@ namespace Aura_OS.Shell.cmdIntr
             {
                 Console.Write("Your editable text: ");
 
-                Cosmos.System.Console.commands.Add("last command");
+                Cosmos.System.Console.commands.Add("ls");
                 Cosmos.System.Console.writecommand = true;
-                Cosmos.System.Console.commandindex = 0;
 
                 string text = Console.ReadLine();
 
@@ -229,7 +229,10 @@ namespace Aura_OS.Shell.cmdIntr
             {                
                 foreach (string command in Cosmos.System.Console.commands)
                 {
-                    Console.WriteLine(command);
+                    Console.Write(command);
+                    Console.Write("   ---   ");
+                    Console.Write(i++);
+                    Console.WriteLine();
                 }
             }
 

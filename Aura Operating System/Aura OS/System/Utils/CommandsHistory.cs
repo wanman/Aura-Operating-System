@@ -9,6 +9,7 @@ namespace Aura_OS.System.Utils
         public static void Add(string cmd)
         {
             Cosmos.System.Console.commands.Add(cmd);
+            Cosmos.System.Console.commandindex++;
         }
 
         public static int GetListIndex()
